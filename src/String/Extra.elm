@@ -30,7 +30,9 @@ pluralize singular plural count =
 
 
 {-| Returns True iff the given String is 1 or more whitespace characters,
-and nothing else. (Whitespace is defined as the regular expression `\s` matcher.)
+and nothing else.
+
+(Whitespace is defined as the regular expression `\s` matcher.)
 
     isWhitespace ""   == False
     isWhitespace " "  == True
