@@ -1,0 +1,16 @@
+{
+    "version": "1.0.0",
+    "summary": "Convenience functions for working with Strings in Elm.",
+    "repository": "https://github.com/NoRedInk/elm-string-extra.git",
+    "license": "BSD-3-Clause",
+    "source-directories": [
+        "src"
+    ],
+    "exposed-modules": [
+        "String.Extra"
+    ],
+    "dependencies": {
+        "elm-lang/core": "2.0.0 <= v < 3.0.0"
+    },
+    "elm-version": "0.15.0 <= v < 0.16.0"
+}
