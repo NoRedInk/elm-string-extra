@@ -1,12 +1,15 @@
-module String.Extra where
+module String.Extra (pluralize, isWhitespace) where
 {-| Convenience functions for working with Strings
 
 # Formatting numbers
 @docs pluralize
 
+# Whitespace
+@docs isWhitespace
+
 -}
 
-import String
+import Regex
 
 
 {-| Given a number, a singular string, and a plural string, returns the number
@@ -24,3 +27,20 @@ pluralize singular plural count =
         "1 " ++ singular
     else
         (toString count) ++ " " ++ plural
+
+
+{-| Returns True iff the given String is 1 or more whitespace characters,
+and nothing else. (Whitespace is defined as the regular expression `\s` matcher.)
+
+    isWhitespace ""   == False
+    isWhitespace " "  == True
+    isWhitespace "  " == True
+    isWhitespace " x" == False
+    isWhitespace "x " == False
+-}
+isWhitespace : String -> Bool
+isWhitespace =
+    Regex.contains isWhitespaceRegex
+
+
+isWhitespaceRegex = Regex.regex "^\\s+$"
