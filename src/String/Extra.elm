@@ -23,10 +23,10 @@ or the plural string otherwise.
 -}
 pluralize : String -> String -> number -> String
 pluralize singular plural count =
-    if count == 1 then
-        "1 " ++ singular
-    else
-        (toString count) ++ " " ++ plural
+  if count == 1 then
+    "1 " ++ singular
+  else
+    (toString count) ++ " " ++ plural
 
 
 {-| Returns True iff the given String is 1 or more whitespace characters,
@@ -42,7 +42,8 @@ and nothing else.
 -}
 isWhitespace : String -> Bool
 isWhitespace =
-    Regex.contains isWhitespaceRegex
+  Regex.contains isWhitespaceRegex
 
 
-isWhitespaceRegex = Regex.regex "^\\s+$"
+isWhitespaceRegex =
+  Regex.regex "^\\s+$"
