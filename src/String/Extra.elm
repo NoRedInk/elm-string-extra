@@ -1,8 +1,9 @@
 module String.Extra (pluralize, isWhitespace) where
+
 {-| Convenience functions for working with Strings
 
-# Formatting numbers
-@docs pluralize
+# Formatting
+@docs capitalize pluralize
 
 # Whitespace
 @docs isWhitespace
@@ -10,6 +11,15 @@ module String.Extra (pluralize, isWhitespace) where
 -}
 
 import Regex
+
+
+capitalize str =
+  case uncons str of
+    Nothing ->
+      str
+
+    ( firstLetter, rest ) ->
+      String.cons (String.toUpper firstLetter) rest
 
 
 {-| Given a number, a singular string, and a plural string, returns the number
