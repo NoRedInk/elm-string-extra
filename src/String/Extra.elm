@@ -55,5 +55,6 @@ isWhitespace =
   Regex.contains isWhitespaceRegex
 
 
+isWhitespaceRegex : Regex
 isWhitespaceRegex =
   Regex.regex "^\\s+$"
