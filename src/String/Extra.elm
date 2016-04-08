@@ -1,15 +1,43 @@
-module String.Extra (pluralize, isWhitespace) where
+module String.Extra (pluralize, capitalize, isWhitespace) where
+
 {-| Convenience functions for working with Strings
 
-# Formatting numbers
-@docs pluralize
+# Formatting
+@docs capitalize, pluralize
 
 # Whitespace
 @docs isWhitespace
 
 -}
 
-import Regex
+import Regex exposing (Regex)
+import String
+import Char
+
+
+{-| Capitalize or uncapitalize the given string.
+
+    capitalize True "foo"
+    -- "Foo"
+
+    capitalize False "BAR"
+    -- "bAR"
+-}
+capitalize : Bool -> String -> String
+capitalize shouldCapitalize str =
+  case String.uncons str of
+    Nothing ->
+      str
+
+    Just ( firstLetter, rest ) ->
+      let
+        newFirstLetter =
+          if shouldCapitalize then
+            Char.toUpper firstLetter
+          else
+            Char.toLower firstLetter
+      in
+        String.cons newFirstLetter rest
 
 
 {-| Given a number, a singular string, and a plural string, returns the number
@@ -23,10 +51,10 @@ or the plural string otherwise.
 -}
 pluralize : String -> String -> number -> String
 pluralize singular plural count =
-    if count == 1 then
-        "1 " ++ singular
-    else
-        (toString count) ++ " " ++ plural
+  if count == 1 then
+    "1 " ++ singular
+  else
+    (toString count) ++ " " ++ plural
 
 
 {-| Returns True iff the given String is 1 or more whitespace characters,
@@ -42,7 +70,9 @@ and nothing else.
 -}
 isWhitespace : String -> Bool
 isWhitespace =
-    Regex.contains isWhitespaceRegex
+  Regex.contains isWhitespaceRegex
 
 
-isWhitespaceRegex = Regex.regex "^\\s+$"
+isWhitespaceRegex : Regex
+isWhitespaceRegex =
+  Regex.regex "^\\s+$"
