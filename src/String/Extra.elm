@@ -1,25 +1,43 @@
-module String.Extra (pluralize, isWhitespace) where
+module String.Extra (pluralize, capitalize, isWhitespace) where
 
 {-| Convenience functions for working with Strings
 
 # Formatting
-@docs capitalize pluralize
+@docs capitalize, pluralize
 
 # Whitespace
 @docs isWhitespace
 
 -}
 
-import Regex
+import Regex exposing (Regex)
+import String
+import Char
 
 
-capitalize str =
-  case uncons str of
+{-| Capitalize or uncapitalize the given string.
+
+    capitalize True "foo"
+    -- "Foo"
+
+    capitalize False "BAR"
+    -- "bAR"
+-}
+capitalize : Bool -> String -> String
+capitalize shouldCapitalize str =
+  case String.uncons str of
     Nothing ->
       str
 
-    ( firstLetter, rest ) ->
-      String.cons (String.toUpper firstLetter) rest
+    Just ( firstLetter, rest ) ->
+      let
+        newFirstLetter =
+          if shouldCapitalize then
+            Char.toUpper firstLetter
+          else
+            Char.toLower firstLetter
+      in
+        String.cons newFirstLetter rest
 
 
 {-| Given a number, a singular string, and a plural string, returns the number
