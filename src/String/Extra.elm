@@ -1,4 +1,4 @@
-module String.Extra (pluralize, capitalize, isWhitespace) where
+module String.Extra exposing (pluralize, capitalize, isWhitespace)
 
 {-| Convenience functions for working with Strings
 
