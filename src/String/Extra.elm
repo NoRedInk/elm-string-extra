@@ -1,9 +1,9 @@
-module String.Extra (pluralize, capitalize, isWhitespace) where
+module String.Extra (pluralize, capitalize, toSentence, isWhitespace) where
 
 {-| Convenience functions for working with Strings
 
 # Formatting
-@docs capitalize, pluralize
+@docs capitalize, pluralize, toSentence
 
 # Whitespace
 @docs isWhitespace
@@ -55,6 +55,49 @@ pluralize singular plural count =
     "1 " ++ singular
   else
     (toString count) ++ " " ++ plural
+
+
+{-| Converts a list of strings into a human formatted readable list
+
+
+    toSentence [] ---> ""
+    toSentence ["lions"] ---> "lions"
+    toSentence ["lions", "tigers"] --> "lions and tigers"
+    toSentence ["lions", "tigers", "bears"] --> "lions, tigers, and bears"
+
+notes:
+* It *DOES* include an oxford comma
+* It *DOES NOT* include a period
+* It *DOES NOT* include the phrase "...oh my!"
+
+-}
+toSentence : List String -> String
+toSentence list =
+  case list of
+    [] ->
+      ""
+
+    x :: [] ->
+      x
+
+    x :: y :: [] ->
+      x ++ " and " ++ y
+
+    x :: y :: more ->
+      toSentenceHelper (x ++ ", " ++ y) more
+
+
+toSentenceHelper : String -> List String -> String
+toSentenceHelper sentence list =
+  case list of
+    [] ->
+      sentence ++ ""
+
+    x :: [] ->
+      sentence ++ ", and " ++ x
+
+    x :: xs ->
+      toSentenceHelper (sentence ++ ", " ++ x) xs
 
 
 {-| Returns True iff the given String is 1 or more whitespace characters,
