@@ -25,19 +25,19 @@ import Char
 -}
 capitalize : Bool -> String -> String
 capitalize shouldCapitalize str =
-  case String.uncons str of
-    Nothing ->
-      str
+    case String.uncons str of
+        Nothing ->
+            str
 
-    Just ( firstLetter, rest ) ->
-      let
-        newFirstLetter =
-          if shouldCapitalize then
-            Char.toUpper firstLetter
-          else
-            Char.toLower firstLetter
-      in
-        String.cons newFirstLetter rest
+        Just ( firstLetter, rest ) ->
+            let
+                newFirstLetter =
+                    if shouldCapitalize then
+                        Char.toUpper firstLetter
+                    else
+                        Char.toLower firstLetter
+            in
+                String.cons newFirstLetter rest
 
 
 {-| Given a number, a singular string, and a plural string, returns the number
@@ -51,10 +51,10 @@ or the plural string otherwise.
 -}
 pluralize : String -> String -> number -> String
 pluralize singular plural count =
-  if count == 1 then
-    "1 " ++ singular
-  else
-    (toString count) ++ " " ++ plural
+    if count == 1 then
+        "1 " ++ singular
+    else
+        (toString count) ++ " " ++ plural
 
 
 {-| Converts a list of strings into a human formatted readable list
@@ -73,31 +73,31 @@ notes:
 -}
 toSentence : List String -> String
 toSentence list =
-  case list of
-    [] ->
-      ""
+    case list of
+        [] ->
+            ""
 
-    x :: [] ->
-      x
+        x :: [] ->
+            x
 
-    x :: y :: [] ->
-      x ++ " and " ++ y
+        x :: y :: [] ->
+            x ++ " and " ++ y
 
-    x :: y :: more ->
-      toSentenceHelper (x ++ ", " ++ y) more
+        x :: y :: more ->
+            toSentenceHelper (x ++ ", " ++ y) more
 
 
 toSentenceHelper : String -> List String -> String
 toSentenceHelper sentence list =
-  case list of
-    [] ->
-      sentence ++ ""
+    case list of
+        [] ->
+            sentence ++ ""
 
-    x :: [] ->
-      sentence ++ ", and " ++ x
+        x :: [] ->
+            sentence ++ ", and " ++ x
 
-    x :: xs ->
-      toSentenceHelper (sentence ++ ", " ++ x) xs
+        x :: xs ->
+            toSentenceHelper (sentence ++ ", " ++ x) xs
 
 
 {-| Returns True iff the given String is 1 or more whitespace characters,
@@ -113,9 +113,29 @@ and nothing else.
 -}
 isWhitespace : String -> Bool
 isWhitespace =
-  Regex.contains isWhitespaceRegex
+    Regex.contains isWhitespaceRegex
 
 
 isWhitespaceRegex : Regex
 isWhitespaceRegex =
-  Regex.regex "^\\s+$"
+    Regex.regex "^\\s+$"
+
+
+{-| Turn an Int into a String.
+
+This works the same way as `Basics.toString` except its type is restricted,
+so if you accidentally pass it something other than an Int, you get an error.
+-}
+int : Int -> String
+int =
+    toString
+
+
+{-| Turns a Float into a String.
+
+This works the same way as `Basics.toString` except its type is restricted,
+so if you accidentally pass it something other than a Float, you get an error.
+-}
+float : Float -> String
+float =
+    toString
