@@ -100,7 +100,7 @@ toSentenceHelper sentence list =
       toSentenceHelper (sentence ++ ", " ++ x) xs
 
 
-{-| Returns True iff the given String is 1 or more whitespace characters,
+{-| Returns True if the given String is 1 or more whitespace characters,
 and nothing else.
 
 (Whitespace is defined as the regular expression `\s` matcher.)
